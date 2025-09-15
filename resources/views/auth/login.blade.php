@@ -21,7 +21,7 @@
                         <button class="btn btn-primary w-100">Login</button>
                     </form>
                     <hr>
-                    <p class="small">Coba login dengan:<br>
+                    <p class="small fw-light">Coba login dengan:<br>
                         admin@example.test | password<br>
                         owner@example.test | password<br>
                         customer@example.test | password
