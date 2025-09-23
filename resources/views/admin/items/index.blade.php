@@ -15,7 +15,7 @@
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>ID</th>
+                <th>No</th>
                 <th>Nama</th>
                 <th>Stok</th>
                 <th>Harga</th>
@@ -25,11 +25,12 @@
         <tbody>
             @forelse($items as $item)
                 <tr>
-                    <td>{{ $item->id }}</td>
+                    <td>{{ ($items->currentPage() - 1) * $items->perPage() + $loop->iteration }}</td>
                     <td>{{ $item->name }}</td>
                     <td>{{ $item->stock }}</td>
                     <td>Rp {{ number_format($item->price, 0, ',', '.') }}</td>
                     <td>
+                        <a href="{{ route('admin.items.show', $item) }}" class="btn btn-sm btn-info">Detail</a>
                         <a href="{{ route('admin.items.edit', $item) }}" class="btn btn-sm btn-warning">Edit</a>
                         <form action="{{ route('admin.items.destroy', $item) }}" method="POST" class="d-inline">
                             @csrf @method('DELETE')
@@ -44,4 +45,8 @@
             @endforelse
         </tbody>
     </table>
+
+    <div class="d-flex justify-content-end">
+        {{ $items->links() }}
+    </div>
 @endsection

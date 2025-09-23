@@ -10,7 +10,7 @@ class ItemController extends Controller
 {
     public function index()
     {
-        $items = Item::all();
+        $items = Item::paginate(10);
         return view('admin.items.index', compact('items'));
     }
 
@@ -25,9 +25,17 @@ class ItemController extends Controller
             'name' => 'required',
             'stock' => 'required|integer',
             'price' => 'required|numeric',
+            'description' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        Item::create($request->all());
+        $data = $request->all();
+
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->file('image')->store('items', 'public');
+        }
+
+        Item::create($data);
         return redirect()->route('admin.items.index')->with('success', 'Item berhasil ditambahkan.');
     }
 
@@ -42,9 +50,17 @@ class ItemController extends Controller
             'name' => 'required',
             'stock' => 'required|integer',
             'price' => 'required|numeric',
+            'description' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png'
         ]);
 
-        $item->update($request->all());
+        $data = $request->all();
+
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->file('image')->store('items', 'public');
+        }
+
+        $item->update($data);
         return redirect()->route('admin.items.index')->with('success', 'Item berhasil diupdate.');
     }
 
@@ -52,5 +68,9 @@ class ItemController extends Controller
     {
         $item->delete();
         return redirect()->route('admin.items.index')->with('success', 'Item berhasil dihapus.');
+    }
+    public function show(Item $item)
+    {
+        return view('admin.items.show', compact('item'));
     }
 }

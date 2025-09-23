@@ -15,10 +15,10 @@
             <h4 class="mb-4">Admin Panel</h4>
             <ul class="nav flex-column">
                 <li class="nav-item mb-2">
-                    <a href="{{ route('admin.dashboard') }}" class="nav-link text-white">🏠 Dashboard</a>
+                    <a href="{{ route('admin.dashboard') }}" class="nav-link text-white ">🏠 Dashboard</a>
                 </li>
                 <li class="nav-item mb-2">
-                    <a href="{{ route('admin.items.index') }}" class="nav-link text-white">📦 Kelola Items</a>
+                    <a href="{{ route('admin.items.index') }}" class="nav-link text-white ">📦 Kelola Items</a>
                 </li>
                 <li class="nav-item">
                     <form action="{{ route('logout') }}" method="POST">

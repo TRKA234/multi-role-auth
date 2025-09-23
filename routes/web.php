@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\Admin\ItemController; // <-- tambahkan ini
+use App\Http\Controllers\Admin\ItemController;
 
 Route::get('/', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
@@ -23,4 +23,5 @@ Route::get('/customer/dashboard', function () {
 // CRUD khusus Admin
 Route::middleware(\App\Http\Middleware\EnsureAdmin::class)->prefix('admin')->name('admin.')->group(function () {
     Route::resource('items', ItemController::class);
+    Route::resource('admin/items', \App\Http\Controllers\Admin\ItemController::class);
 });
